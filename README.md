@@ -89,6 +89,22 @@ replicant-rs resume --task-id 12345
 - Use --where for SQL-like row filtering.
 - Advanced users can specify custom SQL queries with --query.
 
+## How tasks works
+
+- **Task Identification:** Each copy operation generate a unique task identifier (task-id). This ID could be a hash or a UUID generated at the beginning of the operation.
+
+- **State Persistence:** During the copy operation, it periodically save the state of the operation to a local file or a lightweight database (like SQLite, if permissible). The state includes details like tables copied, rows processed, timestamps, and any errors encountered.
+
+- **Error Handling:** We ensure robust error handling mechanisms are in place to catch interruptions (like network issues, application errors, etc.). On encountering an error, we save the current state before exiting or crashing.
+
+- **Resuming Logic:** On initiating a resume operation with replicant-rs resume --task-id 12345, the tool reads the persisted state associated with the provided task-id.
+The tool then determines where the interruption occurred, such as which table was being copied and the last successfully copied row or batch.
+Resume the operation from the point of interruption, ensuring any partially copied data is handled correctly to avoid duplicates or data corruption.
+
+- **Concurrency and Integrity:** For operations involving multiple concurrent tasks, ensure each sub-task (like table copy) maintains its own state. This allows for more granular resumption and better integrity control. With implemented checksums or hash verifications for batches of rows copied to ensure data integrity upon resumption.
+
+- **Cleanup and Finalization:** Once the resume operation successfully completes, we ensure the state is updated to reflect the completion, and any temporary data or states are cleaned up.Optionally, perform a final integrity check to confirm the copied data matches the source post-resumption.
+
 ## Implementation Notes
 - Ensure database-agnostic support for popular systems like MySQL, PostgreSQL, and MongoDB.
 - Leverage native database tools for efficiency in dump and restore operations.
