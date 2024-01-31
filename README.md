@@ -1,6 +1,6 @@
-# Replicant-rs
+# replicant-rs
 
-Replicant-rs is a robust CLI tool designed for copying databases between environments. It offers flexibility in data selection, scheduling, and ensures data integrity during the copy process.
+replicant-rs is a robust CLI tool designed for copying databases between environments. It offers flexibility in data selection, scheduling, and ensures data integrity during the copy process.
 
 ## Features
 
