@@ -1,6 +1,6 @@
-# replicant-rs
+# deckard-rs
 
-replicant-rs is a robust CLI tool designed for copying databases between environments. It offers flexibility in data selection, scheduling, and ensures data integrity during the copy process.
+deckard-rs is a robust CLI tool designed for copying databases between environments. It offers flexibility in data selection, scheduling, and ensures data integrity during the copy process.
 
 ## Features
 
@@ -16,70 +16,70 @@ replicant-rs is a robust CLI tool designed for copying databases between environ
 - **Resume Capability:** Resume interrupted copy tasks seamlessly.
 
 ## Installation
-*Instructions for installing replicant-rs.*
+*Instructions for installing deckard-rs.*
 
 ## Usage
 ### Configure Environments
 ```bash
-replicant-rs config set --env dev --db-type postgres --host localhost --port 5432 --user dev_user --password dev_pass
+deckard config set --env dev --db-type postgres --host localhost --port 5432 --user dev_user --password dev_pass
 
-replicant-rs config set --env prod --db-type mysql --host prod-host --port 3306 --user prod_user --password prod_pass
+deckard config set --env prod --db-type mysql --host prod-host --port 3306 --user prod_user --password prod_pass
 ```
 
 ### Copy Operations
 - #### Entire Database
 
 ```bash
-replicant-rs copy --source dev --target prod
+deckard copy --source dev --target prod
 ```
 
 - #### Specific Tables
 
 ```bash
-replicant-rs copy --source dev --target prod --tables users,orders
+deckard copy --source dev --target prod --tables users,orders
 ```
 
 - #### Filtered Row Copying
 
 ```bash
-replicant-rs copy --source dev --target prod --table users --where "created_at > '2023-01-01'"
+deckard copy --source dev --target prod --table users --where "created_at > '2023-01-01'"
 ```
 
 - #### Scheduling with Cron
 
 ```bash
-replicant-rs schedule --source dev --target prod --cron "0 0 * * *"
+deckard schedule --source dev --target prod --cron "0 0 * * *"
 ```
 
 ## Advanced Options
 ### Data Transformation
 
 ```bash
-replicant-rs copy --source dev --target prod --transform "UPDATE users SET email = CONCAT('dev_', email)"
+deckard copy --source dev --target prod --transform "UPDATE users SET email = CONCAT('dev_', email)"
 ```
 
 Dry Run
 
 ```bash
-replicant-rs copy --source dev --target prod --dry-run
+deckard copy --source dev --target prod --dry-run
 ```
 
 Concurrency Control
 
 ```bash
-replicant-rs copy --source dev --target prod --concurrency 5
+deckard copy --source dev --target prod --concurrency 5
 ```
 
 Integrity Check
 
 ```bash
-replicant-rs copy --source dev --target prod --integrity-check
+deckard copy --source dev --target prod --integrity-check
 ```
 
 Resume Capability
 
 ```bash
-replicant-rs resume --task-id 12345
+deckard resume --task-id 12345
 ```
 
 ## Data Selection Mechanisms
@@ -97,7 +97,7 @@ replicant-rs resume --task-id 12345
 
 - **Error Handling:** We ensure robust error handling mechanisms are in place to catch interruptions (like network issues, application errors, etc.). On encountering an error, we save the current state before exiting or crashing.
 
-- **Resuming Logic:** On initiating a resume operation with replicant-rs resume --task-id 12345, the tool reads the persisted state associated with the provided task-id.
+- **Resuming Logic:** On initiating a resume operation with deckard-rs resume --task-id 12345, the tool reads the persisted state associated with the provided task-id.
 The tool then determines where the interruption occurred, such as which table was being copied and the last successfully copied row or batch.
 Resume the operation from the point of interruption, ensuring any partially copied data is handled correctly to avoid duplicates or data corruption.
 
