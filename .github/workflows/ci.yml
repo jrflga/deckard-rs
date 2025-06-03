@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "work"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres1:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user1
+          POSTGRES_PASSWORD: pass1
+          POSTGRES_DB: db1
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U user1" --health-interval=10s --health-timeout=5s --health-retries=5
+      postgres2:
+        image: postgres:15
+        env:
+          POSTGRES_USER: user2
+          POSTGRES_PASSWORD: pass2
+          POSTGRES_DB: db2
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd="pg_isready -U user2" --health-interval=10s --health-timeout=5s --health-retries=5
+    env:
+      DATABASE_URL1: postgres://user1:pass1@localhost:5432/db1
+      DATABASE_URL2: postgres://user2:pass2@localhost:5433/db2
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-rust@v1
+        with:
+          rust-version: stable
+      - run: cargo test --verbose
