@@ -10,6 +10,7 @@ deckard-rs is a robust CLI tool designed for copying databases between environme
 - **Scheduling:** Set up cron jobs for automated data copying tasks.
 - **Data Transformation:** Apply transformations to data before copying to the target environment.
 - **Logging and Monitoring:** Comprehensive logging for effective monitoring and troubleshooting.
+- **Colorful Output:** Stylish CLI output powered by the [lipbalm](https://crates.io/crates/lipbalm) library inspired by charm.sh.
 - **Dry Run Mode:** Simulate copy operations to preview outcomes without actual execution.
 - **Concurrency Control:** Manage concurrent table copies for optimal performance.
 - **Integrity Check:** Post-copy data integrity verification to ensure data consistency.
