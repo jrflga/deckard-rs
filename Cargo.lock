@@ -222,6 +222,7 @@ dependencies = [
  "anyhow",
  "clap",
  "directories",
+ "lipbalm",
  "postgres",
  "serde",
  "serde_json",
@@ -411,6 +412,12 @@ dependencies = [
  "bitflags",
  "libc",
 ]
+
+[[package]]
+name = "lipbalm"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2699466130ae2858370742c164e1e9ffe8b6d9d9219f86608f97fc29460208f8"
 
 [[package]]
 name = "lock_api"
