@@ -106,6 +106,26 @@ Resume the operation from the point of interruption, ensuring any partially copi
 
 - **Cleanup and Finalization:** Once the resume operation successfully completes, we ensure the state is updated to reflect the completion, and any temporary data or states are cleaned up.Optionally, perform a final integrity check to confirm the copied data matches the source post-resumption.
 
+## Additional Examples
+
+- **Postgres to MySQL with integrity check**
+
+```bash
+deckard copy --source pg_env --target mysql_env --integrity-check --concurrency 4
+```
+
+- **Scheduling frequent syncs**
+
+```bash
+deckard schedule --source staging --target prod --cron "*/30 * * * *"
+```
+
+- **Resuming a task**
+
+```bash
+deckard resume --task-id 67890
+```
+
 ## Implementation Notes
 - Ensure database-agnostic support for popular systems like MySQL, PostgreSQL, and MongoDB.
 - Leverage native database tools for efficiency in dump and restore operations.
