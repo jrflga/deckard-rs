@@ -34,7 +34,7 @@ jobs:
       DATABASE_URL2: postgres://user2:pass2@localhost:5433/db2
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-rust@v1
+      - uses: actions-rs/toolchain@v1
         with:
-          rust-version: stable
+          toolchain: stable
       - run: cargo test --verbose
